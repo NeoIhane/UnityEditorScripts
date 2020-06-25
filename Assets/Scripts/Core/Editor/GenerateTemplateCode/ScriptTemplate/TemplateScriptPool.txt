@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class [@ClassName]: MonoBehaviour
+{
+    [SerializeField]
+    private GameObject  [$obj]Container;
+    [SerializeField]
+    private GameObject  [$obj]Prefab;
+    [SerializeField]
+    private List<GameObject> [$obj]Pool = new List<GameObject>();
+
+    List<GameObject> Generate[$Obj]s(int amountOf[$Obj]s)
+    {
+        for(int i=0; i< amountOf[$Obj]s ; i++)
+            Create[$Obj]().SetActive(false);
+
+        return [$obj]Pool;
+    }
+    private GameObject Create[$Obj]()
+    {
+        GameObject [$obj] = Instantiate([$obj]Prefab, [$obj]Container.transform);
+        [$obj]Pool.Add([$obj]); 
+        return [$obj];
+    }
+    public GameObject Request[$Obj]()
+    {
+        foreach(var [$obj] in [$obj]Pool)
+            if([$obj].activeInHierarchy == false)
+            {  
+                [$obj].SetActive(true);
+                return [$obj];
+            }
+        return Create[$Obj]();
+    }
+    private void Start()
+    {
+        [$obj]Pool = Generate[$Obj]s(10);
+    }
+
+}
